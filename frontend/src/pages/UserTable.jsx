@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const BASE_URL = "http://localhost:5000"; // backend base URL
+const BASE_URL = "https://usermanagement-1-j7ng.onrender.com"; // backend base URL
 
 const UserTable = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Replace with your auth context or token logic
-  const isAdmin = true; // show actions only for admin
-  const token = localStorage.getItem("token"); // JWT token
+  
+  const isAdmin = true; 
+  const token = localStorage.getItem("token"); 
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  // ✅ Fetch users from GET /registerdata
+  
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -23,7 +23,7 @@ const UserTable = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // required if route protected
+          Authorization: `Bearer ${token}`, 
         },
       });
       if (!res.ok) throw new Error("Failed to fetch users");
@@ -36,31 +36,30 @@ const UserTable = () => {
     }
   };
 
-  // ✅ Delete user via DELETE /deleteUser
-// ✅ Delete user
+
 const handleDelete = async (id) => {
   if (!window.confirm("Are you sure you want to delete this user?")) return;
 
   try {
-    const res = await fetch(`${BASE_URL}/deleteUser/${id}`, { // send id in URL
+    const res = await fetch(`${BASE_URL}/deleteUser/${id}`, { 
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // send JWT
+        Authorization: `Bearer ${token}`, 
       },
     });
 
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Failed to delete user");
 
-    alert(data.msg); // "User deleted successfully"
-    fetchUsers(); // refresh table
+    alert(data.msg); 
+    fetchUsers(); 
   } catch (err) {
     alert(err.message);
   }
 };
 
-// ✅ Update user
+
 const handleUpdate = async (id) => {
   const newName = prompt("Enter new name:");
   const newEmail = prompt("Enter new email:");
