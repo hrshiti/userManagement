@@ -11,7 +11,7 @@ const connectDB = require("./config/db")
 
 
 const corsOptions ={
-    origin:["http://localhost:5173","http://localhost:3000"],
+    origin:["http://localhost:5173","https://soft-alpaca-e4373d.netlify.app"],
     methods:"GET,POST,PUT,DELETE,PATCH,HEAD",
     credentials:true,
 }
